@@ -135,11 +135,11 @@
 
             <ul class="nav-main">
               <ul class="nav-main">
-              {{-- <li class="nav-main-heading">Dashboard</li> --}}
+              {{-- <li class="nav-main-heading">Home</li> --}}
               <li class="nav-main-item">
                 <a class="nav-main-link{{ request()->is('/users') ? ' active' : '' }}" href="{{ route('dashboard.index') }}">
                   <i class="nav-main-link-icon fa fa-box"></i>
-                  <span class="nav-main-link-name">Dashboard</span>
+                  <span class="nav-main-link-name">Home</span>
                 </a>
                
               </li>

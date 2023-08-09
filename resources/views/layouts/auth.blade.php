@@ -7,7 +7,7 @@
     <title>{{config('office.name')}} || {{env('APP_NAME')}}</title>
 
     <meta name="description" content="{{config('office.name')}}">
-    <meta name="author" content="Hidetech Corporation">
+    <meta name="author" content={{env('AUTHOR_NAME')}}>
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Open Graph Meta -->

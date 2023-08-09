@@ -11,6 +11,7 @@ use Modules\Role\Entities\Role;
 use Modules\User\Entities\User;
 use Auth;
 use Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -57,7 +58,7 @@ class LoginController extends Controller
         if (empty($user)) {
             return redirect()->route('login')->with('error', 'Invalid username and password combination.');
         }
-        
+
         $userRoles = $user->roles()->pluck('name')->toArray();
         $userRoleAndOffice = array_merge($userRoles, $allowedRoleAndOffice);
         $existingRole = array_intersect($allowedRoleAndOffice, $userRoleAndOffice);
@@ -74,7 +75,7 @@ class LoginController extends Controller
             return redirect()->route('login')->with('error', 'User is not allowed to login');
         }
 
-        if(Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (Auth::guard()->attempt(['username' => $request->username, 'password' => $request->password])) {
             return redirect()->route('index');
         }
 
@@ -85,5 +86,88 @@ class LoginController extends Controller
     {
         Auth::guard()->logout();
         return redirect()->route('login');
+    }
+
+    // Google login
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    // Google callback
+    public function handleGoogleCallback()
+    {
+        // http://localhost:8000/login
+        $user = Socialite::driver('google')->user();
+
+        $this->_registerOrLoginUser($user, 'google');
+        // Return home after login
+        return redirect()->route('index');
+    }
+
+    // Facebook login
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    // Facebook callback
+    public function handleFacebookCallback(Request $request)
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        $this->_registerOrLoginUser($user, 'facebook');
+        // Return home after login
+        return redirect()->route('index');
+    }
+
+    public function redirectToLinkedin()
+    {
+        return Socialite::driver('linkedin')->redirect();
+    }
+
+    public function handleLinkedInCallback(Request $request)
+    {
+        $user = Socialite::driver('linkedin')->user();
+
+        $this->_registerOrLoginUser($user, 'linkedin');
+        // Return home after login
+        return redirect()->route('index');
+    }
+    protected function _registerOrLoginUser($data, $social)
+    {
+        switch ($social) {
+            case 'google':
+                $firstName = @$data->user['given_name'];
+                $lastName = @$data->user['family_name'];
+                $providerId = @$data->id;
+                $email = $data->email;
+                break;
+            case 'facebook':
+                $firstName = @$data['first_name'] ?: $data['name'];
+                $lastName = @$data['last_name'] ?: '';
+                $providerId = $data['id'];
+                $email = @$data['email'];
+                break;
+            case 'linkedin':
+                $firstName = @$data->user['given_name'];
+                $lastName = @$data->user['family_name'];
+                $providerId = @$data->id;
+                $email = $data->email;
+                break;
+        }
+        $user = User::where('email', '=', $email)->first();
+        if (!$user) {
+            $user = new User();
+            $user->first_name = $firstName;
+            $user->last_name = $lastName;
+            $user->email = $email;
+            $user->provider_id = $providerId;
+            $user->username = generateSlug($user->first_name . " " . $user->last_name . " " . $user->id);
+            $user->password = $user->first_name . $user->last_name;
+            $user->save();
+        }
+
+        Auth::login($user);
     }
 }

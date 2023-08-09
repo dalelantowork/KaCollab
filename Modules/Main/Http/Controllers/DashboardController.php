@@ -22,11 +22,6 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $applicationsQuery = Application::officeApplicationQuery();
-        $applicationModel = new Application();
-
-        $applications = $applicationsQuery->orderBy('created_at','desc')->paginate(10);
-
-        return view('main::dashboard', compact('applicationsQuery', 'applications', 'applicationModel'));
+        return view('main::dashboard');
     }
 }
