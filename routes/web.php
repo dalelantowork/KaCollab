@@ -21,12 +21,6 @@ Route::get('/', function() {
   return redirect()->route('dashboard');
 })->name('index');
 
-// Route::get('dashboard/show/{filename}', [DashboardController::class, 'show'])->name('dashboard.show');
-// Route::get('dashboard/flowchart', [DashboardController::class, 'flowchart'])->name('dashboard.flowchart');
-// Route::get('dashboard/flowy', [DashboardController::class, 'flowy'])->name('dashboard.flowy');
-// Route::post('dashboard/flowchartSave', [DashboardController::class, 'flowchartSave'])->name('dashboard.flowchartSave');
-// Route::get('dashboard/flowchartGet', [DashboardController::class, 'flowchartGet'])->name('dashboard.flowchartGet');
-
 Route::get('admin-panel', function() {
   return view('dummy.admin-panel');
 });
@@ -60,5 +54,18 @@ Route::get('financial-report', function() {
 })->name('financial-report');
 
 Auth::routes(['verify' => true]);
+
+
+// Google login
+Route::get('login/google', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
+
+// Facebook login
+Route::get('login/facebook', [App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
+
+// LinkedIn login
+Route::get('login/linkedin', [App\Http\Controllers\Auth\LoginController::class, 'redirectToLinkedin'])->name('login.linkedin');
+Route::get('login/linkedin/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleLinkedinCallback']);
 
 

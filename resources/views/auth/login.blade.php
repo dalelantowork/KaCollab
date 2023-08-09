@@ -10,9 +10,9 @@
 @section('content')
 <!-- Page Content -->
 <div class="row g-0 justify-content-center bg-body-dark">
-    <div class="hero-static col-sm-10 col-md-8 col-xl-6 d-flex align-items-center p-2 px-sm-0">
+    <div class="hero-static col-sm-10 col-md-8 col-xl-8 d-flex align-items-center p-2 px-sm-0">
         <!-- Login Block -->
-        <div class="block block-rounded block-transparent block-fx-pop w-100 mb-0 overflow-hidden bg-image" style="background-image: url('{{ asset('media/photos/photo20@2x.jpg') }}') ;">
+        <div class="block block-rounded block-transparent block-fx-pop w-100 mb-0 overflow-hidden bg-image" style="background-image: url('{{ asset('media/photos/photo11@2x.jpg') }}') ;">
             <div class="row g-0">
                 <div class="col-md-6 order-md-1 bg-body-extra-light">
                     <div class="block-content block-content-full px-lg-5 py-md-5 py-lg-6">
@@ -37,6 +37,7 @@
                                 <button type="submit" class="btn w-100 btn-hero btn-primary">
                                 <i class="fa fa-fw fa-sign-in-alt opacity-50 me-1"></i> Login
                                 </button>
+                                
                                 <p class="mt-3 mb-0 d-lg-flex justify-content-lg-between">
                                     <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1" href="{{ route('password.request') }}">
                                         <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Forgot password
@@ -46,11 +47,20 @@
                                     </a>
                                 </p>
                             </div>
+                            <div class="mb-1">
+                                <div class="btn-group btn-group-justified w-100" role="group" >
+                                    <a href="{{ route('login.google') }}" class="btn btn-danger btn-block">Google</a>
+                                    <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block">Facebook</a>
+                                    <a href="{{ route('login.linkedin') }}" class="btn btn-dark btn-block">Linkedin</a>
+                                </div>
+                            </div>
                         </form>
                         <!-- END Login Form -->
                     </div>
                 </div>
-                <div class="col-md-6 order-md-0 bg-primary-dark-op d-flex align-items-center">
+                <div class="col-md-6 order-md-0 d-flex align-items-center">
+                </div>
+                {{-- <div class="col-md-6 order-md-0 bg-primary-dark-op d-flex align-items-center">
                     <div class="block-content block-content-full px-lg-5 py-md-5 py-lg-6">
                         <div class="d-flex">
                             <a class="flex-shrink-0 img-link me-3" href="javascript:void(0)">
@@ -64,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- END Login Block -->
