@@ -1,0 +1,11 @@
+{
+    "User": true,
+    "Role": true,
+    "Permission": true,
+    "Office": true,
+    "Form": true,
+    "Barangay": true,
+    "Hris": true,
+    "Common": true,
+    "Main": true
+}
