@@ -105,11 +105,11 @@
           <div class="content-header bg-white-5">
             <!-- Logo -->
             <a class="fw-semibold text-white tracking-wide" href="/">
-              <span class="smini-visible">
-                N<span class="opacity-75">t</span>
-              </span>
               <span class="smini-hidden">
-                {{auth()->user()->office_assoc}} <span class="opacity-75"></span>
+                <h3 class="fs-4 fw-bold mb-1">{{config('office.name')}}</h3> 
+                <a class="img-link m-1" href="javascript:void(0)">
+                  <img class="img-avatar img-avatar48" src="http://localhost:8000/media/favicons/apple-touch-icon-180x180.png" alt="">
+                </a>
               </span>
             </a>
             <!-- END Logo -->
